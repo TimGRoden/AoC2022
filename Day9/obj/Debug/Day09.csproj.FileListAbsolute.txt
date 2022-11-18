@@ -1,0 +1,7 @@
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\bin\Debug\Day9.exe.config
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\bin\Debug\Day9.exe
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\bin\Debug\Day9.pdb
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\obj\Debug\Day09.csproj.SuggestedBindingRedirects.cache
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\obj\Debug\Day09.csproj.CoreCompileInputs.cache
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\obj\Debug\Day9.exe
+D:\My Drive\00 TGR\03 CompSci\AoC2022\Day9\obj\Debug\Day9.pdb
