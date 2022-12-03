@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Day3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rGroup.cs" />
+    <Compile Include="Rucksack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
