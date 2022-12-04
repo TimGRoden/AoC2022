@@ -6,3 +6,11 @@ D:\My Drive\00 TGR\03 CompSci\AoC2022\AoC2022\obj\Debug\Testbed.csproj.Suggested
 D:\My Drive\00 TGR\03 CompSci\AoC2022\AoC2022\obj\Debug\Testbed.csproj.CoreCompileInputs.cache
 D:\My Drive\00 TGR\03 CompSci\AoC2022\AoC2022\obj\Debug\AoC2022.exe
 D:\My Drive\00 TGR\03 CompSci\AoC2022\AoC2022\obj\Debug\AoC2022.pdb
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\bin\Debug\AoC2022.exe.config
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\bin\Debug\AoC2022.exe
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\bin\Debug\AoC2022.pdb
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\obj\Debug\Testbed.csproj.AssemblyReference.cache
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\obj\Debug\Testbed.csproj.SuggestedBindingRedirects.cache
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\obj\Debug\Testbed.csproj.CoreCompileInputs.cache
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\obj\Debug\AoC2022.exe
+G:\My Drive\00 TGR\06 GitHub\AoC2022\AoC2022\obj\Debug\AoC2022.pdb
