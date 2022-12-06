@@ -21,44 +21,32 @@ namespace Day6
             }
             return false;
         }
+        static int FindDupes(string dataIn, int n)
+        {
+            List<char> marker = new List<char>();
+            for (int i = 0; i < n-1; i++)
+            {
+                marker.Add(dataIn[i]);
+            }
+            for (int i = n-1; i < dataIn.Length; i++)
+            {
+                marker.Add(dataIn[i]);
+                if (!Dupes(marker))
+                { //It's the key.
+                    return i+1;
+                }
+                else
+                {
+                    marker.RemoveAt(0); //Prep for the next item.
+                }
+            }
+            return -1;
+        }
         static void Main(string[] Args)
         {
-
             string dataIn = File.ReadAllLines("input.txt")[0];
-            List<char> marker = new List<char>() { dataIn[0], dataIn[1], dataIn[2] };
-            
-            for (int i = 3; i < dataIn.Length; i++)
-            {
-                marker.Add(dataIn[i]);
-                if (!Dupes(marker))
-                { //It's the key.
-                    Console.WriteLine($"Part 1: Found code {marker[0]}{marker[1]}{marker[2]}{dataIn[i]} after {i + 1} characters.");
-                    break;
-                }
-                else
-                {
-                    marker.RemoveAt(0); //Prep for the next item.
-                }
-            }
-            marker = new List<char>();
-            for (int i = 0; i < 13; i++)
-            {
-                marker.Add(dataIn[i]);
-            }
-            for (int i = 3; i < dataIn.Length; i++)
-            {
-                marker.Add(dataIn[i]);
-                if (!Dupes(marker))
-                { //It's the key.
-                    Console.WriteLine($"Part 2: Found code {marker[0]}{marker[1]}{marker[2]}{dataIn[i]} after {i + 1} characters.");
-                    break;
-                }
-                else
-                {
-                    marker.RemoveAt(0); //Prep for the next item.
-                }
-            }
-
+            Console.WriteLine($"Part 1: Found after {FindDupes(dataIn, 4)}");
+            Console.WriteLine($"Part 2: Found after {FindDupes(dataIn, 14)}");
             Console.ReadKey();
         }
     }

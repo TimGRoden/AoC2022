@@ -13,3 +13,11 @@ G:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day06.csproj.SuggestedBindin
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day06.csproj.CoreCompileInputs.cache
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day6.exe
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day6.pdb
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\bin\Debug\Day6.exe.config
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\bin\Debug\Day6.exe
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\bin\Debug\Day6.pdb
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day06.csproj.AssemblyReference.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day06.csproj.SuggestedBindingRedirects.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day06.csproj.CoreCompileInputs.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day6.exe
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day6\obj\Debug\Day6.pdb
