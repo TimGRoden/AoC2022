@@ -78,12 +78,13 @@ namespace Day12
             }
             return n;
         }
-        static int FindE(List<Node> nodes)
+        static int FindE(List<Node> nodes, bool visual)
         {
             Node currNode = nextNode(nodes);
             //first node found, distace 0.
             while (nodes.Count > 0)
             {
+                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(2); }
                 //Console.WriteLine($"Checking {(char)currNode.height} ({currNode.name})");
                 if (currNode.height == 'E') break; //If you're looking at E as currNode, you're done.
                 foreach (Node neighbor in currNode.connected)
@@ -100,7 +101,7 @@ namespace Day12
             foreach (Node n in nodes) if (n.height == 'E') return n.minDist;
             return -1;
         }
-        static int FindA(List<Node> nodes)
+        static int FindA(List<Node> nodes, bool visual)
         {
             Node currNode = new Node();
             foreach (Node n in nodes)
@@ -111,6 +112,7 @@ namespace Day12
             currNode.minDist = 0;
             while (nodes.Count > 0)
             {
+                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(2); }
                 //Console.WriteLine($"Checking {(char)currNode.height} ({currNode.name})");
                 if (currNode.height == 'a') break; //If you're looking at a as currNode, you're done.
                 foreach (Node neighbor in currNode.from)
@@ -134,9 +136,21 @@ namespace Day12
         {
             string[] dataIn = File.ReadAllLines("input.txt");
             List<Node> nodes = MakeNodes(dataIn);
-            Console.WriteLine($"S to E took {FindE(nodes)} steps.");
+            Console.Write("Visualise? (y/n)");
+            char choice = Console.ReadKey(true).KeyChar;
+            Console.Clear();
+            bool visualise = false;
+            if (choice == 'y') { visualise = true; PrintAll(nodes, false); Console.ForegroundColor = ConsoleColor.Green; }
+            int sol1 = FindE(nodes, visualise);
+            if (choice == 'y') Console.SetCursorPosition(0, dataIn.Length + 2);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"S to E took {sol1} steps.");
+            if (choice == 'y') { Console.ReadKey(); Console.Clear(); PrintAll(nodes, false); Console.ForegroundColor = ConsoleColor.Green; }
             nodes = MakeNodes(dataIn);
-            Console.WriteLine($"E to a took {FindA(nodes)} steps.");
+            int sol2 = FindA(nodes, visualise);
+            if (choice == 'y') Console.SetCursorPosition(0, dataIn.Length + 2);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"E to a took {sol2} steps.");
             Console.ReadKey();
         }
     }
