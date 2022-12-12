@@ -84,7 +84,7 @@ namespace Day12
             //first node found, distace 0.
             while (nodes.Count > 0)
             {
-                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(2); }
+                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(1); }
                 //Console.WriteLine($"Checking {(char)currNode.height} ({currNode.name})");
                 if (currNode.height == 'E') break; //If you're looking at E as currNode, you're done.
                 foreach (Node neighbor in currNode.connected)
@@ -112,7 +112,7 @@ namespace Day12
             currNode.minDist = 0;
             while (nodes.Count > 0)
             {
-                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(2); }
+                if (visual) { currNode.printNode(); System.Threading.Thread.Sleep(1); }
                 //Console.WriteLine($"Checking {(char)currNode.height} ({currNode.name})");
                 if (currNode.height == 'a') break; //If you're looking at a as currNode, you're done.
                 foreach (Node neighbor in currNode.from)
@@ -140,7 +140,7 @@ namespace Day12
             char choice = Console.ReadKey(true).KeyChar;
             Console.Clear();
             bool visualise = false;
-            if (choice == 'y') { visualise = true; PrintAll(nodes, false); Console.ForegroundColor = ConsoleColor.Green; }
+            if (choice == 'y') { visualise = true; Console.SetWindowSize(dataIn[0].Length + 5, dataIn.Length + 5); PrintAll(nodes, false); Console.ForegroundColor = ConsoleColor.Green; }
             int sol1 = FindE(nodes, visualise);
             if (choice == 'y') Console.SetCursorPosition(0, dataIn.Length + 2);
             Console.ForegroundColor = ConsoleColor.White;
