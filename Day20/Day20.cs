@@ -10,7 +10,10 @@ namespace Day20
     {
         static void Main(string[] args)
         {
-
+            string[] dataIn = File.ReadAllLines("input.txt");
+            CircList allValues = new CircList(dataIn);
+            allValues.moveAll();
+            Console.WriteLine($"Final score: {allValues.FinalScore()}.");
 
 
 

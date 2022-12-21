@@ -10,8 +10,12 @@ namespace Day13
     {
         static void Main(string[] args)
         {
-
-
+            string[] dataIn = File.ReadAllLines("input.txt");
+            List<Signal> signals = new List<Signal>();
+            for (int i = 0; i < dataIn.Length; i++)
+            { //Identify each signal one at a time.
+                if (dataIn[i] == "" || i == dataIn.Length - 1) signals.Add(new Signal(dataIn[i - 2], dataIn[i - 1]));
+            }
 
 
             Console.ReadKey();

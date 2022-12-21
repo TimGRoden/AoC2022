@@ -10,7 +10,7 @@ namespace Day17
     {
         static void Main(string[] args)
         {
-
+            string dataIn = File.ReadAllLines("input.txt")[0];
 
 
 
