@@ -4,95 +4,98 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data.Common;
+
 namespace Day14
 {
     internal class Day14
     {
-        static List<Point> MakeLine(int x1, int y1, int x2, int y2)
+        static List<(int, int)> stable;
+        static List<(int,int)> MakeLine(int x1, int y1, int x2, int y2)
         {
-            List<Point> line = new List<Point>();
+            List<(int,int)> line = new List<(int,int)>();
             if (x1 > x2)
             {
-                for (int x = x2; x <= x1; x++) line.Add(new Point(x, y1, '#'));
+                for (int x = x2; x <= x1; x++) line.Add((x,y1));
             }
             else if (x1 < x2)
             {
-                for (int x = x1; x <= x2; x++) line.Add(new Point(x, y1, '#'));
+                for (int x = x1; x <= x2; x++) line.Add((x,y1));
             }
             else if (y1 > y2)
             {
-                for (int y = y2; y <= y1; y++) line.Add(new Point(x1, y, '#'));
+                for (int y = y2; y <= y1; y++) line.Add((x1,y));
             }
             else
             {
-                for (int y = y1; y <= y2; y++) line.Add(new Point(x1, y, '#'));
+                for (int y = y1; y <= y2; y++) line.Add((x1,y));
             }
             return line;
         }
-        static bool ListContains(List<Point> Points, Point p)
+        static bool AddSand(int maxY, bool part2)
         {
-            foreach (Point p2 in Points)
-            {
-                if (p2.x == p.x && p2.y == p.y) return true;
-            }
-            return false;
-        }
-        static bool ListContains(List<Point> Points, int x, int y)
-        {
-            foreach (Point p2 in Points)
-            {
-                if (p2.x == x && p2.y == y) return true;
-            }
-            return false;
-        }
-        static int[] SizeXY(List<Point> points)
-        {
-            int minX = int.MaxValue, maxX = 0, minY = int.MaxValue, maxY = 0;
-            foreach (Point p in points)
-            {
-                if (p.x > maxX) maxX = p.x;
-                if (p.x < minX) minX = p.x;
-                if (p.y > maxY) maxY = p.y;
-                if (p.y < minY) minY = p.y;
-            }
-            return new int[] { 2+maxX - minX, 2+maxY - minY , minX, minY};
-        }
-        static bool AddSand(ref List<Point> AllPoints, int maxY)
-        {
-            int start = AllPoints.Count;
+            int orig = stable.Count;
             int sandX = 500, sandY = 0;
-            bool falling = !ListContains(AllPoints,sandX,sandY);
+            bool falling = !stable.Contains((sandX, sandY)); //This will stop if the top iece is full.
             while (falling)
             {
-                if (sandY > maxY) break; //Off screen!
-                if (!ListContains(AllPoints, sandX, sandY + 1)) { sandY++; continue; } //Free air!
-                if (ListContains(AllPoints, sandX - 1, sandY + 1)) { sandX--; sandY++; }
-                else if (ListContains(AllPoints, sandX + 1, sandY + 1)) { sandX++; sandY++; }
-                else { falling = false; AllPoints.Add(new Point(sandX, sandY, 'o')); }
+                if (sandY == maxY)
+                {
+                    //Part 2. Just add it there. break regardless.
+                    if (part2) stable.Add((sandX, sandY));
+                    break;
+                }
+                if (!stable.Contains((sandX, sandY + 1))) { sandY++; continue; } //Free air.
+                if (!stable.Contains((sandX-1,sandY+1))) { sandX--; sandY++;continue; } //Fall left.
+                if (!stable.Contains((sandX+1,sandY+1))) { sandX++; sandY++;continue; } //Fall right.
+                stable.Add((sandX, sandY)); //Cannot fall.
+                falling = false;
             }
-            return start < AllPoints.Count;
+            return orig < stable.Count; //true if there's now more points.
         }
-        static void DrawPoints(List<Point> points)
+        static void PlotAllPoints()
         {
-            int[] sizes = SizeXY(points);
-            foreach (Point p in points) p.Draw(sizes[2], sizes[3]);
+            int maxX = 0, maxY = 0, minX = int.MaxValue, minY = int.MaxValue;
+            foreach ((int x, int y) in stable)
+            {
+                if (y>maxY) maxY = y;
+                if (x>maxX) maxX = x;
+                if (y<minY) minY = y;
+                if (x<minX) minX = x;
+            }
+            if (maxY<Console.LargestWindowHeight) minY = 0; //I can display it all, go for it :D
+            if (maxX < Console.LargestWindowWidth) minX = 0;
+            Console.SetWindowSize(maxX - minX, maxY - minY);
+            Console.CursorVisible = false;
+            foreach ((int x, int y) in stable)
+            {
+                Console.SetCursorPosition(x-minX, y);
+                Console.Write('#');
+            }
+
         }
-        static int DoPart1(List<Point> points, bool visual, int maxY)
+        static int Sandfall(bool visual, bool part2)
         {
             int sandCount = 0;
-            bool sanding = true;
-            while (sanding)
+            int maxY = 0; //Find lowest point. Can ignore anything that goes there.
+            foreach ((int x, int y) in stable) if (y > maxY) maxY = y;
+            maxY++; //Allow to "look" one further.
+            bool sandFall = true;
+            while (sandFall)
             {
-                sanding = AddSand(ref points, maxY);
-                if (sanding) sandCount++;
-                DrawPoints(points);
+                sandFall = AddSand(maxY, part2);
+                if (sandFall) sandCount++;
+                if (visual)
+                {
+                    PlotAllPoints();
+                    Console.ReadKey();
+                }
             }
             return sandCount;
         }
-        static void Main(string[] args)
+        static void MakeGrid(string[] dataIn)
         {
-            string[] dataIn = File.ReadAllLines("input.txt");
-            List<Point> AllPoints = new List<Point>();
+            stable = new List<(int, int)>();
             foreach (string line in dataIn)
             {
                 string[] coords = line.Split(' ');
@@ -100,18 +103,23 @@ namespace Day14
                 { //Start at 0, go up in 2's to find new points.
                     int x1 = int.Parse(coords[i].Split(',')[0]);
                     int y1 = int.Parse(coords[i].Split(',')[1]);
-                    int x2 = int.Parse(coords[i+2].Split(',')[0]);
+                    int x2 = int.Parse(coords[i + 2].Split(',')[0]);
                     int y2 = int.Parse(coords[i + 2].Split(',')[1]);
-                    foreach (Point p in MakeLine(x1, y1, x2, y2)) AllPoints.Add(p);
+                    foreach ((int x, int y) in MakeLine(x1, y1, x2, y2)) stable.Add((x, y));
                 }
             }
-            int[] sizes = SizeXY(AllPoints);
-            Console.SetWindowSize(sizes[0], sizes[1]);
-            foreach (Point p in AllPoints) p.Draw(sizes[2], sizes[3]);
+        }
+        static void Main(string[] args)
+        {
+            string[] dataIn = File.ReadAllLines("input.txt");
+            MakeGrid(dataIn);
 
-            int sol1 = DoPart1(AllPoints, true, sizes[1]);
-            Console.SetCursorPosition(0, sizes[1] - 1);
-            Console.Write($"Placed {sol1} sand.");
+            int sol1 = Sandfall(false, false);
+            Console.SetCursorPosition(0, 0);
+            Console.Write($"Part 1, placed {sol1} sand.");
+            MakeGrid(dataIn);
+            Console.SetCursorPosition(0, 1);
+            Console.WriteLine($"Part 2, placed {Sandfall(false, true)} sand.");
             Console.ReadKey();
         }
     }
