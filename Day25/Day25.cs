@@ -29,7 +29,7 @@ namespace Day25
             ulong total = 0;
             Stack<char> vals = new Stack<char>();
             foreach (char c in line) vals.Push(c);
-            uint col = 1;
+            ulong col = 1;
             while (vals.Count > 0)
             {
                 switch (vals.Pop())
@@ -90,9 +90,8 @@ namespace Day25
             string ans = "";
             foreach (char c in result) ans += c;
             return ans;
-
-
         }
+        
         static void Main(string[] args)
         {
             string[] dataIn = File.ReadAllLines("input.txt");
@@ -105,6 +104,8 @@ namespace Day25
             string sol1 = writeLine(totalFuel);
             Console.WriteLine($"In SNAFU: {sol1}.");
             Console.WriteLine($"Back in normal: {readLine(sol1)}.");
+            Console.WriteLine($"{totalFuel} in Base 5 is: {IntToBase5(totalFuel)}.");
+            Console.WriteLine($"Possible solution: 202201==-==101-0 is {readLine("202201==-==101-0")}.");
             Console.ReadKey();
         }
     }
