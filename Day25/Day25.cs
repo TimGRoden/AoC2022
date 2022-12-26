@@ -54,17 +54,12 @@ namespace Day25
         }
         static string writeLine(ulong value)
         {
-            //Console.WriteLine($"Recieved {value}.");
             string base5 = IntToBase5(value);
-            //Console.WriteLine($"In base 5: {base5}.");
             for (int i = 0; i < base5.Length; i++)
             {
                 value += 2 * (ulong) Math.Pow(5, i);
             }
             char[] chars = IntToBase5(value).ToArray();
-            //Console.Write("Now increased:");
-            //foreach (char c in chars) Console.Write(c);
-            //Console.WriteLine(".");
             char[] result = new char[chars.Length];
             for (int i = 0; i < chars.Length; i++)
             {
@@ -103,9 +98,6 @@ namespace Day25
             Console.WriteLine($"Total fuel needed is {totalFuel}.");
             string sol1 = writeLine(totalFuel);
             Console.WriteLine($"In SNAFU: {sol1}.");
-            Console.WriteLine($"Back in normal: {readLine(sol1)}.");
-            Console.WriteLine($"{totalFuel} in Base 5 is: {IntToBase5(totalFuel)}.");
-            Console.WriteLine($"Possible solution: 202201==-==101-0 is {readLine("202201==-==101-0")}.");
             Console.ReadKey();
         }
     }
