@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,6 +65,13 @@ namespace Day13
             while (str[pos] != ',' && str[pos] != ']') pos++;
             return pos;
         }
+        public void PrintSignal()
+        {
+            PrintList(0);
+            PrintList(1);
+            if (ordered) Console.WriteLine("Correct order.");
+            else Console.WriteLine("Wrong order.");
+        }
         public void PrintList(int num)
         {
             if (num == 0) ReadList(sigA);
@@ -88,7 +96,38 @@ namespace Day13
         }
         private void checkOrder()
         {
-            ordered = true;
+            ordered = (bool) InOrder(this.sigA, this.sigB);
+        }
+        private bool? InOrder(List<object> sigA, List<object> sigB)
+        {
+            bool inOrder = sigA.Count < sigB.Count;
+            for (int i=0;i<Math.Min(sigA.Count, sigB.Count); i++)
+            {
+                if (sigA[i] is int && sigB[i] is int)
+                {
+                    if ((int) sigA[i] == (int) sigB[i]) continue;
+                    return (int) sigA[i] < (int) sigB[i];
+                } else if (sigA[i] is List<object> && sigB[i] is List<object>)
+                {
+                    bool? result = InOrder((List<object>)sigA[i], (List<object>)sigB[i]);
+                    if (result != null) return result;
+                } else if (sigA[i] is int)
+                {
+                    List<object> JustVal = new List<object>();
+                    JustVal.Add((int)sigA[i]);
+                    bool? result = InOrder(JustVal, (List<object>)sigB[i]);
+                    if (result != null) return result;
+                } else
+                {
+                    List<object> JustVal = new List<object>();
+                    JustVal.Add((int)sigB[i]);
+                    bool? result = InOrder((List<object>)sigA[i], JustVal);
+                    if (result != null) return result;
+                }
+            }
+            //If you reach here, no decision has been made yet.
+            if (sigA.Count == sigB.Count) return null;
+            return inOrder;
         }
         
     }
