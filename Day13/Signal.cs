@@ -10,65 +10,86 @@ namespace Day13
     {
         public string sig1, sig2;
         public bool ordered;
+        public List<object> sigA, sigB;
         public Signal(string sig1, string sig2)
         {
-            this.sig1 = sig1;
-            this.sig2 = sig2;
+            this.sig1 = sig1.Substring(1, sig1.Length - 1);
+            this.sig2 = sig2.Substring(1, sig2.Length - 1);
+            sigA = MakeList(this.sig1);
+            sigB = MakeList(this.sig2);
             checkOrder();
+        }
+        private List<object> MakeList(string str)
+        {
+            List<object> goodList = new List<object>();
+            while (str.Length > 0 && str[0] != ']')
+            {
+                if (char.IsNumber(str[0]))
+                {
+                    int pos = FindPos(str);
+                    goodList.Add(int.Parse(str.Substring(0, pos)));
+                    if (str[pos] == ',')
+                    {
+                        str = str.Substring(FindPos(str) + 1);
+                    }
+                    else break; //It's a close bracket. You're done.
+                    
+                } else if (str[0] == '[')
+                {
+                    goodList.Add(MakeList(str.Substring(1)));
+                    int nextPos = FindNext(str);
+                    if (nextPos < str.Length) str = str.Substring(FindNext(str));
+                    else break;
+                } else
+                {
+                    str = str.Substring(1);
+                }
+            }
+            return goodList;
+        }
+        private int FindNext (string str)
+        {
+            int count = 1, pos = 1;
+            while (count != 0)
+            {
+                if (str[pos] == '[') count++;
+                else if (str[pos] == ']') count--;
+                pos++;
+            }
+            return pos;
+        }
+        private int FindPos(string str)
+        {
+            int pos = 0;
+            while (str[pos] != ',' && str[pos] != ']') pos++;
+            return pos;
+        }
+        public void PrintList(int num)
+        {
+            if (num == 0) ReadList(sigA);
+            else ReadList(sigB);
+            Console.WriteLine();
+        }
+        public void ReadList(List<object> list)
+        {
+            Console.Write('[');
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] is int)
+                {
+                    Console.Write(list[i]);
+                } else
+                {
+                    ReadList((List<object>)list[i]);
+                }
+                if (i != list.Count - 1) Console.Write(", ");
+            }
+            Console.Write(']');
         }
         private void checkOrder()
         {
             ordered = true;
         }
-        private bool? Compare(string left, string right)
-        {
-            bool isOrder = true;
-            //Outermost layer
-            left = left.Substring(1,left.Length-2);
-            right = right.Substring(1,right.Length-2);
-            while (left.Length>0 && right.Length>0)
-            {
-                if (Char.IsNumber(left[0]) && Char.IsNumber(right[0]))
-                {
-                    int leftI = int.Parse(left.Substring(0, left.IndexOf(',')+1));
-                    int rightI = int.Parse(right.Substring(0, right.IndexOf(',')+1));
-                    if (leftI > rightI)
-                    {
-                        isOrder = false;
-                        break;
-                    }
-                    else if (leftI < rightI) break; //order good.
-                    left = nextString(left);
-                    right = nextString(right);
-
-                } else //It's a [. Nested!
-                {
-                    string innerL = nextString(left);
-                    string innerR = nextString(right);
-                    bool? nest = Compare(innerL, innerR);
-                    if (nest.HasValue) { isOrder = nest.Value; break; } //Came to a conclusion.
-                    left = nextString(left);
-                    right = nextString(right);
-                }
-            }
-            if (right.Length == 0) return false; //Right ran out of items.
-            return isOrder;
-        }
-        private string nextString(string inpy)
-        {
-            if (!inpy.Contains('[')) return inpy.Substring(inpy.IndexOf(',') + 1);
-            int start = inpy.IndexOf('['), count = 0, pos = 0;
-            for (int i = start; i < inpy.Length; i++)
-            {
-                if (inpy[start + i] == '[') count++;
-                else if (inpy[start + i] == ']') count--;
-                if (count == 0)
-                {
-                    pos = i+1;
-                    break;
-                }
-            }
-            return inpy.Substring(start, pos);
-        }
+        
     }
 }
