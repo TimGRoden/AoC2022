@@ -76,11 +76,26 @@ namespace Day20v2
             }
             Console.WriteLine($"Part 1: {s1}, {s2}, {s3} => {s1 + s2 + s3}");
         }
+        static void DoPart1Neat(string[] dataIn)
+        {
+            CircList nodes = new CircList(dataIn);
+            nodes.Shuffle();
+            long score = nodes.finalScore();
+            Console.WriteLine($"Part 1: {score}.");
+        }
+        static void DoPart2Neat(string[] dataIn)
+        {
+            CircList nodes = new CircList(dataIn);
+            nodes.Encode(811589153);
+            nodes.moveN(10);
+            long score = nodes.finalScore();
+            Console.WriteLine($"Part 2: {score}.");
+        }
         static void Main(string[] args)
         {
             string[] dataSafe = File.ReadAllLines("input.txt");
-            DoPart1(dataSafe);
-            DoPart2(dataSafe);
+            DoPart1Neat(dataSafe);
+            DoPart2Neat(dataSafe);
             Console.ReadKey();
         }
     }
