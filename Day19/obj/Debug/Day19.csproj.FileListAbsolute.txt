@@ -13,3 +13,13 @@ G:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.SuggestedBindi
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.CoreCompileInputs.cache
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.exe
 G:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.pdb
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\bin\Debug\Day19.exe.config
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\bin\Debug\Day19.exe
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\bin\Debug\Day19.pdb
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.AssemblyReference.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.SuggestedBindingRedirects.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.CoreCompileInputs.cache
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.exe
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.pdb
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.Properties.Resources.resources
+D:\My Drive\00 TGR\06 GitHub\AoC2022\Day19\obj\Debug\Day19.csproj.GenerateResource.cache
